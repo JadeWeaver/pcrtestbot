@@ -3,16 +3,23 @@ class RapidTestOrder {
     this.OrderState = {
       WELCOMING: () => {
         let aReturn = [];
-        this.stateCur = this.OrderState.RESERVING;
+        this.stateCur = this.OrderState.SIZE;
         aReturn.push("Welcome to Buckley's Coffee House.");
         aReturn.push("What size drink would you like to order[small, medium, large]?");
         return aReturn;
       },
-      
+      SIZE: () =>{
+        let aReturn = [];
+        this.stateCur = this.OrderState.RESERVING;
+        aReturn.push("What type of milk would you like?");
+        aReturn.push("We have Whole and Almond");
+        return aReturn;
+
+      },
       RESERVING: (sInput) => {
         let aReturn = [];
         this.isDone = true;
-        if (sInput.toLowerCase().startsWith('s')) {
+        if (sInput.toLowerCase().startsWith('y')) {
           aReturn.push(`Your rapid test is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
@@ -23,6 +30,7 @@ class RapidTestOrder {
         }
         return aReturn;
       }
+    };
     
 
 
