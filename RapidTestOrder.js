@@ -5,22 +5,28 @@ class RapidTestOrder {
         let aReturn = [];
         this.stateCur = this.OrderState.SIZE;
         aReturn.push("Welcome to Buckley's Coffee House.");
-        aReturn.push("What size drink would you like to order[small, medium, large]?");
+        aReturn.push("What size drink would you like to order: small[+$4.00], medium[+$4.45], or large[+5.45]?");
         return aReturn;
       },
       SIZE: () =>{
         let aReturn = [];
-        this.stateCur = this.OrderState.RESERVING;
+        this.stateCur = this.OrderState.MILK;
         aReturn.push("What type of milk would you like?");
-        aReturn.push("We have Whole and Almond");
+        aReturn.push("We have Whole [+$0.50] and Almond [+$0.75]");
         return aReturn;
-
       },
+      MILK: () =>{
+        let aReturn = [];
+        this.stateCur = this.OrderState.RESERVING;
+        aReturn.push("Would you like to add a bagel to your order for an extra $3.00?");
+        return aReturn;
+      },
+
       RESERVING: (sInput) => {
         let aReturn = [];
         this.isDone = true;
         if (sInput.toLowerCase().startsWith('y')) {
-          aReturn.push(`Your rapid test is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a coffee with milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
