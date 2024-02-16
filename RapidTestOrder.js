@@ -21,16 +21,25 @@ class RapidTestOrder {
         aReturn.push("Would you like to add a bagel to your order for an extra $3.00?");
         return aReturn;
       },
-      FINALIZE: () =>{
+      FINALIZE: (sInput) =>{
         let aReturn = [];
         this.stateCur = this.OrderState.RESERVING;
-        aReturn.push("Your order ready to send. To confirm your order type 'yes', to cancel your order type 'no'");
+        if(sInput.toLowerCase().startsWith('y')){
+            this.Bagel = true;
+        }
+        aReturn.push("Your order is ready to send. To confirm your order type 'yes', to cancel your order type 'no'");
         return aReturn;
       },
       RESERVING: (sInput) => {
         let aReturn = [];
         this.isDone = true;
-        if (sInput.toLowerCase().startsWith('y')) {
+        if (sInput.toLowerCase().startsWith('y') && this.Bagel){
+          aReturn.push(`Your online order of a coffee with milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          let d = new Date();
+          d.setMinutes(d.getMinutes() + 120);
+          aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
+        } 
+        else if (sInput.toLowerCase().startsWith('y')){
           aReturn.push(`Your online order is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
@@ -49,6 +58,7 @@ class RapidTestOrder {
     this.stateCur = this.OrderState.WELCOMING;
     this.isDone = false;
     this.sFrom = sFrom;
+    this.Bagel = false;
   }
   handleInput(sInput) {
     return this.stateCur(sInput);
