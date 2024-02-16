@@ -17,11 +17,16 @@ class RapidTestOrder {
       },
       MILK: () =>{
         let aReturn = [];
-        this.stateCur = this.OrderState.RESERVING;
+        this.stateCur = this.OrderState.FINALIZE;
         aReturn.push("Would you like to add a bagel to your order for an extra $3.00?");
         return aReturn;
       },
-
+      FINALIZE: () =>{
+        let aReturn = [];
+        this.stateCur = this.OrderState.RESERVING;
+        aReturn.push("Your order ready to send. To confirm your order type 'yes', to cancel your order type 'no'");
+        return aReturn;
+      },
       RESERVING: (sInput) => {
         let aReturn = [];
         this.isDone = true;
