@@ -5,14 +5,14 @@ class RapidTestOrder {
         let aReturn = [];
         this.stateCur = this.OrderState.SIZE;
         aReturn.push("Welcome to Buckley's Coffee House.");
-        aReturn.push("What size drink would you like to order: small[+$4.00], medium[+$4.45], or large[+5.45]?");
+        aReturn.push("What size drink would you like to order: small, medium, or large?");
         return aReturn;
       },
       SIZE: () =>{
         let aReturn = [];
         this.stateCur = this.OrderState.MILK;
         aReturn.push("What type of milk would you like?");
-        aReturn.push("We have Whole [+$0.50] and Almond [+$0.75]");
+        aReturn.push("We have Whole and Almond");
         return aReturn;
       },
       MILK: () =>{
