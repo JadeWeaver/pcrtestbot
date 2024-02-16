@@ -10,7 +10,7 @@ class RapidTestOrder {
       },
       SIZE: (sInput) =>{
         let aReturn = [];
-        this.stateCur = this.OrderState.MILK;
+        this.stateCur = this.OrderState.DRINK;
         if (sInput.toLowerCase().startsWith('s')){
           this.Size = "small"
         } 
@@ -19,6 +19,22 @@ class RapidTestOrder {
         } 
         else if (sInput.toLowerCase().startsWith('l')){
           this.Size = "large"
+        } 
+        aReturn.push("Which drink would you like?");
+        aReturn.push("We have Latte, Capuccino, or Macchiato");
+        return aReturn;
+      },
+      DRINK: (sInput) =>{
+        let aReturn = [];
+        this.stateCur = this.OrderState.MILK;
+        if (sInput.toLowerCase().startsWith('l')){
+          this.Drink = "Latte"
+        } 
+        else if (sInput.toLowerCase().startsWith('c')){
+          this.Drink = "Capuccino"
+        } 
+        else if (sInput.toLowerCase().startsWith('m')){
+          this.Drink = "Macchiato"
         } 
         aReturn.push("What type of milk would you like?");
         aReturn.push("We have Whole and Almond");
@@ -49,13 +65,13 @@ class RapidTestOrder {
         let aReturn = [];
         this.isDone = true;
         if (sInput.toLowerCase().startsWith('y') && this.Bagel){
-          aReturn.push(`Your online order of a ${this.Size} coffee with ${this.Size} milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} ${this.Drink} coffee with ${this.Milk} milk and a bagel is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y')){
-          aReturn.push(`Your online order of a ${this.Size} coffee with ${this.Size} milk is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} ${this.Drink} coffee with ${this.Milk} milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
@@ -76,6 +92,7 @@ class RapidTestOrder {
     this.Bagel = false;
     this.Milk = "no";
     this.Size = "small";
+    this.Drink = "regular";
   }
   handleInput(sInput) {
     return this.stateCur(sInput);
