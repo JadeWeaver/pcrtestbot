@@ -15,9 +15,15 @@ class RapidTestOrder {
         aReturn.push("We have Whole and Almond");
         return aReturn;
       },
-      MILK: () =>{
+      MILK: (sInput) =>{
         let aReturn = [];
         this.stateCur = this.OrderState.FINALIZE;
+        if (sInput.toLowerCase().startsWith('a')){
+          this.Almond = true;
+        } 
+        else if(sInput.toLowerCase().startsWith('w')){
+            this.Whole = true;
+        }
         aReturn.push("Would you like to add a bagel to your order for an extra $3.00?");
         return aReturn;
       },
@@ -33,14 +39,38 @@ class RapidTestOrder {
       RESERVING: (sInput) => {
         let aReturn = [];
         this.isDone = true;
-        if (sInput.toLowerCase().startsWith('y') && this.Bagel){
-          aReturn.push(`Your online order of a coffee with milk and a bagel is reserved under the phone number ${this.sFrom}`);
+        if (sInput.toLowerCase().startsWith('y') && this.Bagel && this.Almond){
+          aReturn.push(`Your online order of a coffee with almond milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          let d = new Date();
+          d.setMinutes(d.getMinutes() + 120);
+          aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
+        } 
+        else if (sInput.toLowerCase().startsWith('y') && this.Bagel && this.Whole){
+          aReturn.push(`Your online order of a coffee with whole milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          let d = new Date();
+          d.setMinutes(d.getMinutes() + 120);
+          aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
+        } 
+        else if (sInput.toLowerCase().startsWith('y') && this.Bagel){
+          aReturn.push(`Your online order of a coffee without milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          let d = new Date();
+          d.setMinutes(d.getMinutes() + 120);
+          aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
+        } 
+        else if (sInput.toLowerCase().startsWith('y') && this.Whole){
+          aReturn.push(`Your online order of a coffee with whole milk is reserved under the phone number ${this.sFrom}`);
+          let d = new Date();
+          d.setMinutes(d.getMinutes() + 120);
+          aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
+        } 
+        else if (sInput.toLowerCase().startsWith('y') && this.Almond){
+          aReturn.push(`Your online order of a coffee with almond milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y')){
-          aReturn.push(`Your online order is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a coffee without milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
@@ -59,6 +89,8 @@ class RapidTestOrder {
     this.isDone = false;
     this.sFrom = sFrom;
     this.Bagel = false;
+    this.Almond = false;
+    this.Whole = false;
   }
   handleInput(sInput) {
     return this.stateCur(sInput);
