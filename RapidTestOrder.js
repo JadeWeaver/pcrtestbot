@@ -89,6 +89,9 @@ class RapidTestOrder {
             this.Bagel = true;
             this.Cost = this.Cost + 3;
         }
+        else{
+            aReturn.push("Sorry that's not a valid response. Your order will proceed with no bagel.");
+        }
         aReturn.push("Your order is ready to send. To confirm your order type 'yes', to cancel your order type 'cancel'");
         return aReturn;
       },
