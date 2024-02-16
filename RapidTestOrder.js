@@ -23,6 +23,10 @@ class RapidTestOrder {
           this.Size = "large";
           this.Cost = this.Cost + 5;
         } 
+        else{
+            aReturn.push("Sorry, that's not a menu option. Your order will proceed as a small coffee.");
+            this.Cost = this.Cost + 3;
+        }
         aReturn.push("Which drink would you like?");
         aReturn.push("We have Latte, Capuccino, or Macchiato");
         return aReturn;
@@ -39,6 +43,9 @@ class RapidTestOrder {
         else if (sInput.toLowerCase().startsWith('m')){
           this.Drink = "Macchiato";
         } 
+        else{
+            aReturn.push("Sorry, that's not a menu option. Your order will proceed as a regular coffee.");
+        }
         aReturn.push("What type of milk would you like?");
         aReturn.push("We have Whole [+$1.00] and Almond [+$2.00]");
         return aReturn;
@@ -53,6 +60,9 @@ class RapidTestOrder {
         else if(sInput.toLowerCase().startsWith('w')){
             this.Milk = "whole";
             this.Cost = this.Cost + 1;
+        }
+        else{
+            aReturn.push("Sorry that's not a menu option. Your order will proceed with no milk.");
         }
         aReturn.push("What topping would you like?");
         aReturn.push("We have Whipped Cream [+$1.00], Caramel [+$1.00], or No Topping?");
@@ -79,7 +89,7 @@ class RapidTestOrder {
             this.Bagel = true;
             this.Cost = this.Cost + 3;
         }
-        aReturn.push("Your order is ready to send. To confirm your order type 'yes', to cancel your order type 'no'");
+        aReturn.push("Your order is ready to send. To confirm your order type 'yes', to cancel your order type 'cancel'");
         return aReturn;
       },
       RESERVING: (sInput) => {
