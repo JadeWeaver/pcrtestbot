@@ -8,9 +8,18 @@ class RapidTestOrder {
         aReturn.push("What size drink would you like to order: small, medium, or large?");
         return aReturn;
       },
-      SIZE: () =>{
+      SIZE: (sInput) =>{
         let aReturn = [];
         this.stateCur = this.OrderState.MILK;
+        if (sInput.toLowerCase().startsWith('s')){
+          this.Size = "small"
+        } 
+        else if (sInput.toLowerCase().startsWith('m')){
+          this.Size = "medium"
+        } 
+        else if (sInput.toLowerCase().startsWith('l')){
+          this.Size = "large"
+        } 
         aReturn.push("What type of milk would you like?");
         aReturn.push("We have Whole and Almond");
         return aReturn;
@@ -40,37 +49,37 @@ class RapidTestOrder {
         let aReturn = [];
         this.isDone = true;
         if (sInput.toLowerCase().startsWith('y') && this.Bagel && this.Almond){
-          aReturn.push(`Your online order of a coffee with almond milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size}coffee with almond milk and a bagel is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y') && this.Bagel && this.Whole){
-          aReturn.push(`Your online order of a coffee with whole milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} coffee with whole milk and a bagel is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y') && this.Bagel){
-          aReturn.push(`Your online order of a coffee without milk and a bagel is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} coffee without milk and a bagel is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y') && this.Whole){
-          aReturn.push(`Your online order of a coffee with whole milk is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} coffee with whole milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y') && this.Almond){
-          aReturn.push(`Your online order of a coffee with almond milk is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} coffee with almond milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
         } 
         else if (sInput.toLowerCase().startsWith('y')){
-          aReturn.push(`Your online order of a coffee without milk is reserved under the phone number ${this.sFrom}`);
+          aReturn.push(`Your online order of a ${this.Size} coffee without milk is reserved under the phone number ${this.sFrom}`);
           let d = new Date();
           d.setMinutes(d.getMinutes() + 120);
           aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
@@ -91,6 +100,7 @@ class RapidTestOrder {
     this.Bagel = false;
     this.Almond = false;
     this.Whole = false;
+    this.Size = "small";
   }
   handleInput(sInput) {
     return this.stateCur(sInput);
